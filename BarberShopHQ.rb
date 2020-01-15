@@ -12,6 +12,10 @@ end
 class Barber < ActiveRecord::Base
 end
 
+before do
+	@barbers = Barber.order 'created_at DESC'
+end
+
 get '/' do
-	erb "Hello! <a href=\"https://github.com/Oleg-rb/Template/\">Original</a> pattern has been modified for <a href=\"https://github.com/Oleg-rb/Template/\">Template</a>"			
+	erb :index
 end
