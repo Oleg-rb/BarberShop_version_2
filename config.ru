@@ -1,2 +1,2 @@
-require './app'
+require './BarberShopHQ'
 run Sinatra::Application
