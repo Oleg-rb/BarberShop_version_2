@@ -4,17 +4,17 @@
 
   <div class="form-group">
     <label>Ваше имя</label>
-    <input id="bbb" name="client[name]" type="text" class="form-control" placeholder="Введите Ваше имя" value="">
+    <input id="bbb" name="client[name]" type="text" class="form-control" placeholder="Введите Ваше имя" value="<%= @c.name %>">
   </div>
 
    <div class="form-group">
     <label>Номер Вашего телефона</label>
-    <input name="client[phone]" type="text" class="form-control ccc" placeholder="Введите номер Вашего телефона" value="">
+    <input name="client[phone]" type="text" class="form-control ccc" placeholder="Введите номер Вашего телефона" value="<%= @c.phone %>">
   </div>
 
    <div class="form-group">
     <label>Желаемые дата и время записи</label>
-    <input id="datetimepicker" name="client[datestamp]" type="text" class="form-control" placeholder="Введите желаемые дату и время записи" value="">
+    <input id="datetimepicker" name="client[datestamp]" type="text" class="form-control" placeholder="Введите желаемые дату и время записи" value="<%= @c.datestamp %>">
   </div>
 
   <!-- <div class="form-group">
