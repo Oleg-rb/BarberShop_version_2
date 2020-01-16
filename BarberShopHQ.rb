@@ -4,13 +4,8 @@ require 'sinatra/reloader'
 require 'sqlite3'
 require 'sinatra/activerecord'
 
-# set :database, "sqlite3:barbershop.db"
+set :database, "sqlite3:barbershop.db"
 
-def get_db
-	db = set :database, "sqlite3:barbershop.db"
-	db.results_as_hash = true
-	return db
-end
 # set :database, {adapter: "sqlite3", database: "barbershop.db"}
 #ActiveRecord::Base.establish_connection(
 #       :adapter  => "sqlite3",
@@ -21,18 +16,6 @@ class Client < ActiveRecord::Base
 end
 
 class Barber < ActiveRecord::Base
-end
-
-def is_barber_exists? db, name
-	db.execute('select *from Barbers where barbers_name=?', [name]).length > 0
-end
-
-def seed_db db, barbers
-	barbers.each do |barber|
-		if !is_barber_exists? db, barber
-			db.execute 'insert into Barbers (barbers_name) values (?)', [barber]
-		end
-	end
 end
 
 before do
@@ -115,29 +98,18 @@ post '/visit' do
 	@user_name  = params[:user_name]
 	@phone      = params[:phone]
 	@date_time  = params[:date_time]
-	@specialist = params[:specialist]
+	@barber     = params[:barber]
 	@color      = params[:color]
 
-	hh = { :user_name  => 'Введите Ваше имя',
-		   :phone     => 'Введите номер Вашего телефона',
-		   :date_time => 'Введите дату и время' }
+	c = Client.new
 
-		@error = hh.select {|key,_| params[key] == ""}.values.join(", ")
+	c.name = @user_name
+	c.phone = @phone
+	c.datestamp = @date_time
+	c.barber = @barber
+	c.color = @color
+	c.save
 
-		if @error != ''
-			return erb :visit
-		end
+	erb "<h2>Спасибо, Вы записались!</h2>"
 
-	db = get_db
-	db.execute 'insert into Users (name, phone, date_stamp, barber, color) values (?, ?, ?, ?, ?)', [@user_name, @phone, @date_time, @specialist, @color]
-	db.close
-
-	@title = "Спасибо за Ваш выбор, #{@user_name}!"
-	@message = "Ваш парикмахер #{@specialist} будет ждать Вас #{@date_time}!"
-
-	file_users = File.open './public/users.txt', 'a'
-	file_users.write "User: #{@user_name},   Phone: #{@phone},   Date and time: #{@date_time},   Specialist: #{@specialist},   Color: #{@color}\n"
-	file_users.close
-
-	erb :message
 end
