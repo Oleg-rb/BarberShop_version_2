@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 2020_01_15_084835) do
     t.text "name"
     t.text "phone"
     t.text "datestamp"
-    t.text "barder"
+    t.text "barber"
     t.text "color"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
