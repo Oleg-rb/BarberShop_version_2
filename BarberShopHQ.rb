@@ -17,7 +17,7 @@ class Barber < ActiveRecord::Base
 end
 
 before do
-	@barbers = Barber.order 'created_at DESC'
+	@barbers = Barber.all
 end
 
 get '/' do
@@ -49,6 +49,11 @@ end
 get '/bookings' do
 	@clients = Client.order 'created_at DESC'
 	erb :bookings
+end
+
+get '/client/:id' do
+	@client = Client.find params[:id]
+	erb :client
 end
 
 post '/admin' do
