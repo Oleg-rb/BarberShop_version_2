@@ -48,6 +48,10 @@ get '/showusers' do
 	erb :showusers
 end
 
+get '/barber/:id' do
+	erb :barber
+end
+
 post '/admin' do
 	@login    = params[:login]
 	@password = params[:password]
