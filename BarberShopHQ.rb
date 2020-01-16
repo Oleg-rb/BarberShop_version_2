@@ -41,16 +41,14 @@ get '/visit' do
 	erb :visit
 end
 
-get '/showusers' do
-	db = get_db
-	@results = db.execute 'select * from Users order by id desc'
-
-	erb :showusers
-end
-
 get '/barber/:id' do
 	@barber = Barber.find params[:id]
 	erb :barber
+end
+
+get '/bookings' do
+	@clients = Client.order 'created_at DESC'
+	erb :bookings
 end
 
 post '/admin' do
