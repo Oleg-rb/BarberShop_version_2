@@ -4,7 +4,7 @@ require 'sinatra/reloader'
 require 'sqlite3'
 require 'sinatra/activerecord'
 
-set :database, "sqlite3:barbershop.db"
+set :database, {adapter: "sqlite3", database: "barbershop.db"}
 
 class Client < ActiveRecord::Base
 	validates :name, presence: true, length: { minimum: 3 }
